@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">DigiGoat_login</string>
+    <string name="greeting">Hai, %1$s</string>
+    <string name="gauge_meter_title">Gauge Meter Kesehatan</string>
+    <string name="total_health">Total Sehat</string>
+    <string name="health_status">Sehat</string>
+    <string name="news_title">Berita</string>
+    <string name="view_all">Lihat Semua</string>
+    <string name="news_title_1">Pentingnya Nutri...</string>
+    <string name="news_desc_1">Peternak kambing semakin menyadari pentingnya...</string>
+    <string name="news_title_2">Inovasi Baru...</string>
+    <string name="news_desc_2">Teknologi baru membantu peternakan...</string>
+</resources>
