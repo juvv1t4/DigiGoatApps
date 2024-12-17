@@ -42,7 +42,7 @@ fun ManagementScreen(navController: NavHostController) {
                 navController.navigate(Screen.CatatanPakan.route)
             }
             MenuItem("Catatan Kesehatan", painterResource(R.drawable.image_goat3)) {
-                navController.navigate(Screen.HealthRecordScreen.route)
+                navController.navigate(Screen.CatatanKesehatan.route)
             }
         }
     }

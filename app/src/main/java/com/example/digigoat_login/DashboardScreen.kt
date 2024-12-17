@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,6 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.digigoat_login.navigation.Screen
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
 
 @Composable
 fun DashboardScreen(navController: NavHostController) {
@@ -37,24 +41,72 @@ fun DashboardScreen(navController: NavHostController) {
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold
         )
+
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = stringResource(id = R.string.gauge_meter_title),
+            text = "Gauge Meter Kesehatan",
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium
         )
+        Spacer(modifier = Modifier.height(8.dp))
+        GaugeCarousel()
 
-        Spacer(modifier = Modifier.height(16.dp))
-        GaugeMeterSection(inputValue = 60) // Dynamic input value
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Jumlah Kambing",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        GoatCounter()
+    }
+}
 
-        // News Section
-        NewsSection(navController)
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun GaugeCarousel() {
+    val pagerState = rememberPagerState()
+    val scope = rememberCoroutineScope()
+
+    // Gauge values
+    val healthStates = listOf(
+        Pair("Sehat", 85),      // Title and value
+        Pair("Tidak Sehat", 40)
+    )
+
+    // Horizontal Pager
+    HorizontalPager(
+        count = healthStates.size,
+        state = pagerState,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(300.dp)
+    ) { page ->
+        // Ambil data berdasarkan indeks halaman
+        val (title, value) = healthStates[page]
+        GaugeMeterSection(title, value)
+    }
+
+    // Indicator Dots untuk menunjukkan halaman aktif
+    Spacer(modifier = Modifier.height(16.dp))
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        repeat(healthStates.size) { index ->
+            val color = if (pagerState.currentPage == index) Color(0xFFB28704) else Color.LightGray
+            Box(
+                modifier = Modifier
+                    .size(12.dp)
+                    .padding(4.dp)
+                    .background(color, shape = RoundedCornerShape(50))
+            )
+        }
     }
 }
 
 @Composable
-fun GaugeMeterSection(inputValue: Int) {
+fun GaugeMeterSection(title: String, inputValue: Int) {
     // Animasi untuk inputValue
     val animatedValue by animateFloatAsState(
         targetValue = inputValue.toFloat(),
@@ -88,7 +140,7 @@ fun GaugeMeterSection(inputValue: Int) {
 
             // Teks dengan animasi
             Text(
-                text = stringResource(id = R.string.total_health),
+                text = title,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 color = Color.White
@@ -102,100 +154,49 @@ fun GaugeMeterSection(inputValue: Int) {
     }
 }
 
-
-@Composable
-fun NewsSection(navController: NavHostController) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = stringResource(id = R.string.news_title),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
-        TextButton(onClick = { navController.navigate(Screen.NewsScreen.route) }) {
-            Text(text = stringResource(id = R.string.view_all),
-                color = Color(0xFFB28704) // Brown color
-            )
-        }
-    }
-
-    Spacer(modifier = Modifier.height(16.dp))
-
-    // Row to hold multiple News Cards
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        NewsCard(
-            imageRes = R.drawable.image1,
-            title = stringResource(id = R.string.news_title_1),
-            date = "13 Oktober 2024",
-            description = stringResource(id = R.string.news_desc_1)
-        )
-        NewsCard(
-            imageRes = R.drawable.image1,
-            title = stringResource(id = R.string.news_title_2),
-            date = "13 Oktober 2024",
-            description = stringResource(id = R.string.news_desc_2)
-        )
-    }
-}
-
-@Composable
-fun NewsCard(imageRes: Int, title: String, date: String, description: String) {
-    Card(
-        modifier = Modifier
-            .width(160.dp)
-            .height(200.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(4.dp)
-    ) {
-        Column(
-            modifier = Modifier.padding(8.dp),
-            horizontalAlignment = Alignment.Start
-        ) {
-            Image(
-                painter = painterResource(imageRes),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(80.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = title,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = date,
-                fontSize = 12.sp,
-                color = Color.Gray
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = description,
-                fontSize = 14.sp,
-                maxLines = 2,
-                color = Color.Gray
-            )
-        }
-    }
-}
-
 // Helper function to constrain meter values
 private fun getMeterValue(inputPercentage: Int): Int {
     return when {
         inputPercentage < 0 -> 0
         inputPercentage > 100 -> 100
         else -> inputPercentage
+    }
+}
+
+@Composable
+fun GoatCounter() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(1.5f),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF322405)) // Brown color
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.goat),
+                contentDescription = "Goat",
+                modifier = Modifier.size(100.dp)
+            )
+            Text(
+                text = "Total Kambing",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "16",
+                fontSize = 36.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
     }
 }

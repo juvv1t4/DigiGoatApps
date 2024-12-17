@@ -5,7 +5,7 @@ import CatatanPakan
 import DataRecoveryScreen
 import EditProfileScreen
 import HealthRecordScreen
-import NewsScreen
+//import NewsScreen
 import NotificationScreen
 import TambahCatatan
 import TopBar
@@ -35,13 +35,11 @@ fun Digigoat() {
         Screen.NewsScreen.route to "Berita Terkini",
         Screen.RegisterScreen.route to "Register",
         Screen.ProfileScreen.route to "Profile",
-        Screen.HealthRecordScreen.route to "Catatan Kesehatan",
+        Screen.CatatanKesehatan.route to "Catatan Kesehatan",
         Screen.DataRecoveryScreen.route to "Pemulihan Data",
         Screen.EditProfileScreen.route to "Edit Profile",
         Screen.CatatanPakan.route to "Catatan Pakan"// New screen route added
     )
-
-
 
     val topBarTitle = routeTitles[currentRoute] ?: "DigiGoat"
 
@@ -78,10 +76,9 @@ fun Digigoat() {
             composable(Screen.Management.route) { ManagementScreen(navController) }
             composable(Screen.CatatanPerkembangan.route) { CatatanPerkembangan(navController)}
             composable(Screen.TambahCatatan.route) { TambahCatatan() }
-            composable(Screen.NewsScreen.route) { NewsScreen(navController) }
             composable(Screen.RegisterScreen.route) { RegisterScreen(navController) }
             composable(Screen.ProfileScreen.route) { ProfileScreen(navController) }
-            composable (Screen.HealthRecordScreen.route) { HealthRecordScreen() }
+            composable(Screen.CatatanKesehatan.route) { HealthRecordScreen() }
             composable(Screen.DataRecoveryScreen.route) {DataRecoveryScreen(navController)}
             composable(Screen.EditProfileScreen.route) {EditProfileScreen(navController)}
             composable(Screen.CatatanPakan.route) {CatatanPakan(navController)}
@@ -94,7 +91,6 @@ fun shouldShowBottomBar(currentRoute: String?): Boolean {
     return currentRoute in listOf(
         Screen.Dashboard.route,
         Screen.Management.route,
-        Screen.NewsScreen.route,
         Screen.ProfileScreen.route
     )
 }

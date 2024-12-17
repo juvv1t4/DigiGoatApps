@@ -63,138 +63,6 @@ fun DataRecoveryScreen(navController: NavHostController) {
                 .padding(padding)
                 .padding(16.dp)
         ) {
-            // Section: Sinkronisasi Cloud
-            Text(
-                text = "Sinkronisasi Cloud",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
-            )
-            Text(
-                text = "Pilih Layanan Cloud",
-                fontSize = 12.sp,
-                color = Color.Gray,
-                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        color = Color.LightGray,
-                        shape = RoundedCornerShape(8.dp)
-                    )
-                    .padding(12.dp),
-                contentAlignment = Alignment.CenterStart
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Google Drive",
-                        color = Color.Gray
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.vector),
-                        contentDescription = "Select Cloud Service",
-                        tint = Color.Gray
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(18.dp))
-
-            // Tombol Unggah dan Unduh
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 1.dp)
-            ) {
-                Button(
-                    onClick = { /* Handle upload to cloud */ },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7B5E00)),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.up),
-                        contentDescription = "Upload",
-                        modifier = Modifier
-                            .size(15.dp)
-                            .padding(end = 5.dp)
-                    )
-                    Spacer(modifier = Modifier.width(5.dp))
-                    Text(
-                        text = "Unggah ke Cloud",
-                        color = Color.White,
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Normal
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(20.dp))
-
-                Button(
-                    onClick = { /* Handle download from cloud */ },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7B5E00)),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.down),
-                        contentDescription = "Download",
-                        modifier = Modifier
-                            .size(15.dp)
-                            .padding(end = 5.dp)
-                    )
-                    Spacer(modifier = Modifier.width(5.dp))
-                    Text(
-                        text = "Unggah dari Cloud",
-                        color = Color.White,
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Normal
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(16.dp)) // Spasi antara tombol dan indikator
-
-            // Ikon dan progres sinkronisasi
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Text(
-                    text = "Proses Sinkronisasi",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
-                )
-
-                Text(
-                    text = "${syncProgress.toInt()}%",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Gray,
-                    modifier = Modifier.padding(top = 4.dp)
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                LinearProgressIndicator(
-                    progress = syncProgress / 100f,
-                    color = Color.Black,
-                    trackColor = Color.LightGray,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(8.dp)
-                        .clip(RoundedCornerShape(4.dp))
-                )
-            }
-
-            Spacer(modifier = Modifier.height(40.dp)) // Spasi sebelum elemen berikutnya
-
             // Section: Ekspor Data
             Text(
                 text = "Ekspor Data",
@@ -369,6 +237,43 @@ fun DataRecoveryScreen(navController: NavHostController) {
                         color = Color.White
                     )
                 }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp)) // Spasi sebelum elemen berikutnya
+
+            // Ikon dan progres sinkronisasi
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    text = "Proses Ekspor Data",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+
+                Text(
+                    text = "${syncProgress.toInt()}%",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                LinearProgressIndicator(
+                    progress = syncProgress / 100f,
+                    color = Color.Black,
+                    trackColor = Color.LightGray,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(8.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                )
             }
         }
     }

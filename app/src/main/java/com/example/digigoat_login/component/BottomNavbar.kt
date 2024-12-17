@@ -46,7 +46,7 @@ fun BottomNavbar(navController: NavController) {
     // Selected state tracking the selected item
     val selectedItem = remember { mutableStateOf("Beranda") }
 
-    val backgroundColor = Color(0xFF3D2B1F) // Warna coklat
+    val backgroundColor = Color(0xFF322405) // Warna coklat
     val selectedColor = Color(0xFFD2A73F)   // Warna emas
     val unselectedColor = Color.White
 
@@ -56,7 +56,6 @@ fun BottomNavbar(navController: NavController) {
             selectedItem.value = when (backStackEntry.destination.route) {
                 Screen.Dashboard.route -> "Beranda"
                 Screen.Management.route -> "Manajemen"
-                Screen.NewsScreen.route -> "Berita"
                 Screen.ProfileScreen.route -> "Profile"
                 else -> "Beranda" // default to "Beranda" if not matched
             }
@@ -98,18 +97,6 @@ fun BottomNavbar(navController: NavController) {
                 onClick = {
                     selectedItem.value = "Manajemen"
                     navController.navigate(Screen.Management.route)
-                }
-            )
-
-            BottomNavItem(
-                label = "Berita",
-                icon = Icons.AutoMirrored.Filled.Article,
-                isSelected = selectedItem.value == "Berita",
-                selectedColor = selectedColor,
-                unselectedColor = unselectedColor,
-                onClick = {
-                    selectedItem.value = "Berita"
-                    navController.navigate(Screen.NewsScreen.route)
                 }
             )
 

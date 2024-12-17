@@ -35,13 +35,13 @@ fun TopBar(
                     modifier = Modifier
                 ) {
                     // Back Icon (Visible only on certain screens)
-                    if (currentRoute == Screen.Management.route ||
-                        currentRoute == Screen.NewsScreen.route ||
+                    if (
                         currentRoute == Screen.Notification.route ||
                         currentRoute == Screen.CatatanPerkembangan.route ||
+                        currentRoute == Screen.CatatanPakan.route ||
+                        currentRoute == Screen.CatatanKesehatan.route ||
                         currentRoute == Screen.TambahCatatan.route ||
-                        currentRoute == Screen.HealthRecordScreen.route||
-                        currentRoute == Screen.ProfileScreen.route||
+                        currentRoute == Screen.EditProfileScreen.route||
                         currentRoute == Screen.TambahCatatan.route||
                         currentRoute == Screen.DataRecoveryScreen.route
                         ) {
@@ -60,7 +60,9 @@ fun TopBar(
                     }
 
                     // Show Logo only on Dashboard
-                    if (currentRoute == Screen.Dashboard.route) {
+                    if (currentRoute == Screen.Dashboard.route||
+                        currentRoute == Screen.Management.route||
+                        currentRoute == Screen.ProfileScreen.route) {
                         Image(
                             painter = painterResource(id = R.drawable.logo_digigoat), // Replace with your logo image resource
                             contentDescription = "Logo",
@@ -89,7 +91,7 @@ fun TopBar(
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFF4E342E), // Dark brown color
+            containerColor = Color(0xFF322405), // Dark brown color
             titleContentColor = Color.White
         )
     )

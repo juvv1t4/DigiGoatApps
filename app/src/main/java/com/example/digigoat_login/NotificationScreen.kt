@@ -45,13 +45,11 @@ fun NotificationScreen() {
             .padding(16.dp)
     ) {
 
-
-
         NotificationGroup(
             title = "Hari Ini",
             notifications = listOf(
-                "Harga Pasar" to "Harga kambing naik 15% di pasar lokal",
-                "Manajemen" to "Tips merawat kambing di musim hujan agar tetap sehat"
+                "Vaksinasi" to "Kambing harus diberikan vaksin cacing",
+                "Vitamin" to "Berikan kambing vitamin D"
             )
         )
 
@@ -60,8 +58,8 @@ fun NotificationScreen() {
         NotificationGroup(
             title = "Kemarin",
             notifications = listOf(
-                "Kesehatan" to "Cegah penyakit kulit pada kambing",
-                "Perkembangan" to "Perubahan tren konsumsi daging kambing"
+                "Obat" to "Kambing harus diberikan obat mata",
+                "Obat" to "Kambing harus diberikan obat mulut"
             ),
             highlightIndex = 0
         )
@@ -116,8 +114,8 @@ fun NotificationItem(category: String, message: String, isHighlighted: Boolean =
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             Icon(
-                imageVector = if (category == "Harga Pasar" || category == "Perkembangan") {
-                    Icons.Default.TrendingUp
+                imageVector = if (category == "Vaksinasi" || category == "Vitamin" || category == "Obat") {
+                    Icons.Default.Notifications
                 } else {
                     Icons.Default.Notifications
                 },
